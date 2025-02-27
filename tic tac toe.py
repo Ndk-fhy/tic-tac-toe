@@ -35,13 +35,15 @@ def victoire(grille,joeur):
     
     if (grille[0][0] == joeur and grille[1][1] == joeur and grille[2][2] == joeur):
         test = False
+        
     if (grille[0][2] == joeur and grille[1][1] == joeur and grille[2][0] == joeur):
         test = False
             
     return test
 
-# print(victoire([[0, 0 ,1], [ 0, 0, 0], [ 1, ' ', 1]],0))
+# print(victoire([[1, 0 ,0], [ 0, 1, 0], [ 0, 0, 1]],1))
 
+    
 def sep(num):
     uni=num%10
     dec=num//10
@@ -73,24 +75,38 @@ def main():
     j2='o'
     grille=initgrille()
     cond=True
-    cpt=random.randrange(1,2)
-    while cond:
+    egg=True
+    cpt=random.randrange(1,10)
+    cptfinal=cpt+8
+    while cond and egg:
         print(cpt)
         if (cpt % 2 != 0):
+            print("Au tour de J1 !")
             grille=jouercoupjoeur(grille,j1)
             affiche(grille)
             cond=victoire(grille,j1)
             
+            
         else :
+            print("Au tour de J2 !")
             grille=jouercoupjoeur(grille,j2)
             affiche(grille)
             cond=victoire(grille,j2)
             
+            
+        egg=cpt<cptfinal
+        
         cpt+=1
-    if (cpt % 2 == 0):
-        print("J1 gagne")
+    
+    if(not egg):
+        print("égalité")
     else:
-        print("J2 gagne")
+        if (cpt % 2 == 0):
+            print("J1 gagne")
+        elif (cpt % 2 != 0):
+            print("J2 gagne")
+    
+        
     return None
 
 print(main())
